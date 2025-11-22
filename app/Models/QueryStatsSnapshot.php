@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class QueryStatsSnapshot extends Model
+{
+    /** @use HasFactory<\Database\Factories\QueryStatsSnapshotFactory> */
+    use HasFactory;
+
+    protected $fillable = [
+        'payload',
+    ];
+
+    protected $casts = [
+        'payload' => 'array',
+    ];
+}
