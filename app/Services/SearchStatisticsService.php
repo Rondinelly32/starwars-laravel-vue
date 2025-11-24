@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\SearchQuery;
-use Illuminate\Database\Query\Builder;
 
 class SearchStatisticsService
 {
@@ -13,7 +12,7 @@ class SearchStatisticsService
             'top_search_queries' => $this->tppSearchQueries(),
             'search_volume_by_hour' => $this->searchVolumneByHour(),
             'average_duration_ms' => $this->averageDuration(),
-            'total_queris' => SearchQuery::count(),
+            'total_queries' => SearchQuery::count(),
         ];
     }
 

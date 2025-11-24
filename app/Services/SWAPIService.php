@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
 
 class SWAPIService
 {
@@ -21,26 +20,6 @@ class SWAPIService
     {
     }
 
-//    public function getPeopleList(string $searchString= ''): array
-//    {
-//        return $this->getList(self::PEOPLE_ENDPOINT, $searchString);
-//    }
-//
-//    public function getPeopleDetails($id): array
-//    {
-//        return $this->getDetails(self::PEOPLE_ENDPOINT, $id);
-//    }
-//
-//    public function getFilmsList($searchString = ''): array
-//    {
-//        return $this->getList(self::FILMS_ENDPOINT, $searchString);
-//    }
-//
-//    public function getFilmDetails($id): array
-//    {
-//        return $this->getDetails(self::FILMS_ENDPOINT, $id);
-//    }
-
     public function list($type, $searchString): array
     {
         $allResults = [];
@@ -52,7 +31,6 @@ class SWAPIService
             $page++;
         } while (!empty($results));
 
-        Log::info("ALL RESULTS", $allResults);
         array_map(
             fn($item) => $item->id = basename($item->url)
             ,$allResults
@@ -70,12 +48,10 @@ class SWAPIService
 
         foreach ($items as $index => $itemUrl) {
             $itemId = basename($itemUrl);
-            Log::info('BASENAME: ' . $itemId);
             $filmDetails = $this->swapiClient->getDetails(
                 self::RELATION_ENDPOINT[$this->relation],
                 $itemId
             );
-            Log::info("FILM ID $itemId DETAILS: " , $filmDetails);
             $items[$index] = $filmDetails;
             $items[$index]['id'] = $itemId;
         }

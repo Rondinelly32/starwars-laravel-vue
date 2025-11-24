@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Log;
 
 class SWAPIClient extends Client
 {
@@ -26,7 +24,7 @@ class SWAPIClient extends Client
             return [];
         }
         $data = json_decode($response->getBody()->__toString());
-        Log::info("DATA: ", [$data]);
+
         return $data->results ?? [];
     }
 
@@ -35,7 +33,6 @@ class SWAPIClient extends Client
         $fullUrl = self::BASE_URL . "$type/$id";
         $response = $this->get($fullUrl);
         $data = json_decode($response->getBody()->__toString(), true);
-        Log::info('DETAIL DATA: ', $data);
 
         return $data ?? [];
     }
