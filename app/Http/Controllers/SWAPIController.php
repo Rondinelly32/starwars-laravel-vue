@@ -8,45 +8,10 @@ use Illuminate\Http\Request;
 
 class SWAPIController extends Controller
 {
-    public const TYPE_PEOPLE = 'people';
-    public const TYPE_FILMS = 'films';
-
     public function __construct(public SWAPIService $swapiService)
     {
     }
 
-//    public function getPeopleList(Request $request)
-//    {
-//        $search = $this->validateForList($request);
-//        $data = $this->swapiService->getPeopleList($search);
-//        return response()->json($data);
-//    }
-//
-//    public function getFilmsList(Request $request)
-//    {
-//        $search = $this->validateForList($request);
-//        $data = $this->swapiService->getFilmsList($search);
-//        return response()->json($data);
-//    }
-//
-//    public function getDetailsPeople()
-//    {
-//
-//    }
-//
-//    public function getDetailsFilm()
-//    {
-//
-//    }
-//
-//    public function validateForList(Request $request): string
-//    {
-//        $validated = $request->validate([
-//            'search' => 'nullable|string',
-//        ]);
-//
-//        return $validated['search'] ?? '';
-//    }
     public function list(Request $request, string $type)
     {
         $search = $request->validate([

@@ -52,6 +52,12 @@ class SWAPIService
             $page++;
         } while (!empty($results));
 
+        Log::info("ALL RESULTS", $allResults);
+        array_map(
+            fn($item) => $item->id = basename($item->url)
+            ,$allResults
+        );
+
         return $allResults;
     }
 
@@ -71,6 +77,7 @@ class SWAPIService
             );
             Log::info("FILM ID $itemId DETAILS: " , $filmDetails);
             $items[$index] = $filmDetails;
+            $items[$index]['id'] = $itemId;
         }
 
         $details = array_merge($details, [$this->relation => $items]);

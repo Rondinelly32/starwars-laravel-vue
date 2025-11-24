@@ -4,7 +4,7 @@ use App\Http\Controllers\SWAPIController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 //Route::get('/list/people', [SWAPIController::class, 'getPeopleList']);

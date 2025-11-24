@@ -23,7 +23,6 @@ class SWAPIClient extends Client
                 ],
             );
         } catch (\Exception $e) {
-            Log::error("Error fetching data from SWAPI: " . $e->getMessage());
             return [];
         }
         $data = json_decode($response->getBody()->__toString());
