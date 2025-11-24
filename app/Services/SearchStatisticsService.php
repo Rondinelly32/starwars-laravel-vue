@@ -10,7 +10,7 @@ class SearchStatisticsService
     {
         return [
             'top_search_queries' => $this->tppSearchQueries(),
-            'search_volume_by_hour' => $this->searchVolumneByHour(),
+            'search_volume_by_hour' => $this->searchVolumeByHour(),
             'average_duration_ms' => $this->averageDuration(),
             'total_queries' => SearchQuery::count(),
         ];
@@ -31,7 +31,7 @@ class SearchStatisticsService
         return (float) SearchQuery::avg('duration_ms') ?? 0.0;
     }
 
-    private function searchVolumneByHour()
+    private function searchVolumeByHour()
     {
         return SearchQuery::selectRaw('HOUR(created_at) as hour, COUNT(*) as count')
             ->groupBy('hour')
