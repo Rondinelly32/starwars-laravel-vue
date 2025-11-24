@@ -50,6 +50,10 @@ async function searchCall() {
         })
     } catch (error) {
         console.error('Error during search:', error)
+        emit('results', {
+            type: type.value,
+            results: []
+        })
     } finally {
         isLoading.value = false
     }
