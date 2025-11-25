@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\SearchQuery;
-use Illuminate\Support\Facades\Log;
 
 class SearchStatisticsService
 {
@@ -35,19 +34,22 @@ class SearchStatisticsService
     private function searchVolumeByHour() : array
     {
         $volumenByHour = SearchQuery::selectRaw('HOUR(created_at) as hour, COUNT(*) as count')
-        ->where('created_at', '>=', now()->subHour())
+        ->where('created_at', '>=', now()->subDay())
         ->groupBy('hour')
             ->orderBy('hour')
             ->get()
-            ->pluck('count', 'hour')
-            ->map(fn($count) => (int) $count)
+            ->mapWithKeys(function ($row) {
+                return [(int) $row->hour => (int) $row->count];
+            })
             ->toArray();
 
         $allHours = [];
         for ($hour = 0; $hour < 24; $hour++) {
-            $allHours[$hour] = $volumenByHour[$hour] ?? 0;
+            $allHours[] = [
+                'hour' => $hour,
+                'count' => $volumenByHour[$hour] ?? 0,
+            ];
         }
-        Log::info("All hours: ", $allHours);
         return $allHours;
     }
 }
