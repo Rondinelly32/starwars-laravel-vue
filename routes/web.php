@@ -1,18 +1,14 @@
 <?php
 
-use App\Http\Controllers\SWAPIController;
+use App\Http\Controllers\SwApiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
 });
 
-//Route::get('/list/people', [SWAPIController::class, 'getPeopleList']);
-//Route::get('/list/films', [SWAPIController::class, 'getFilmsList']);
-//Route::get('/details/people/{$url}', [SWAPIController::class, 'getDetailsPeople']);
-//Route::get('/details/films/{$url}', [SWAPIController::class, 'getDetailsFilm']);
-Route::get('/{type}', [SWAPIController::class, 'list'])
+Route::get('/{type}', [SwApiController::class, 'list'])
     ->whereIn('type', ['people', 'films']);
-Route::get('/{type}/{id}', [SWAPIController::class, 'details'])
+Route::get('/{type}/{id}', [SwApiController::class, 'details'])
     ->whereIn('type', ['people', 'films']);
-Route::get('/stats', [SWAPIController::class, 'stats']);
+Route::get('/stats', [SwApiController::class, 'stats']);

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 
-class SWAPIClient extends Client
+class SwApiClient extends Client
 {
     public const BASE_URL = 'https://swapi.dev/api/';
 

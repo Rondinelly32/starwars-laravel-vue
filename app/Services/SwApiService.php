@@ -3,7 +3,7 @@
 namespace App\Services;
 
 
-class SWAPIService
+class SwApiService
 {
     public const PEOPLE_ENDPOINT = 'people';
     public const FILMS_ENDPOINT = 'films';
@@ -16,7 +16,7 @@ class SWAPIService
 
     public string $relation;
 
-    public function __construct(public SWAPIClient $swapiClient)
+    public function __construct(public SwApiClient $swApiClient)
     {
     }
 
@@ -26,7 +26,7 @@ class SWAPIService
         $page = 1;
 
         do {
-            $results = $this->swapiClient->getPage($type, $searchString, $page);
+            $results = $this->swApiClient->getPage($type, $searchString, $page);
             $allResults = array_merge($allResults, $results);
             $page++;
         } while (!empty($results));
@@ -43,12 +43,12 @@ class SWAPIService
     {
         $this->setRelation($type);
 
-        $details = $this->swapiClient->getDetails($type,$id);
+        $details = $this->swApiClient->getDetails($type,$id);
         $items = $details[$this->relation];
 
         foreach ($items as $index => $itemUrl) {
             $itemId = basename($itemUrl);
-            $filmDetails = $this->swapiClient->getDetails(
+            $filmDetails = $this->swApiClient->getDetails(
                 self::RELATION_ENDPOINT[$this->relation],
                 $itemId
             );
